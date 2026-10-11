@@ -1,3 +1,4 @@
+.pytest_cache/
 data/
 models/*.pth
 __pycache__/
