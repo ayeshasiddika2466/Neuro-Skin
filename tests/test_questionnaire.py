@@ -46,3 +46,13 @@ def test_levels():
     assert to_level(0.5) == "MODERATE"
     assert to_level(0.9) == "HIGH"
     assert to_level(None) is None
+
+from backend.questionnaire import score_stress, gad7_band 
+
+def test_stress_max():
+    assert score_stress([4, 4, 4, 4])["score"] == 16
+  
+def test_gad7_boundaries():
+    assert gad7_band(4) == "minimal"
+    assert gad7_band(10) == "moderate"
+    assert gad7_band(15) == "severe"
