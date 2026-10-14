@@ -26,6 +26,13 @@
 - Risks: logo/watermark differences between classes, skin tone mismatch, no severity labels
 - Decision: binary psoriasis vs non-psoriasis; add lichen only if count is OK
 
-- Backup:
-
-- Why:
+## Cleaning (Day 4)
+- Before: PSORIASIS 1586, LICHEN PLANUS 1565, NORMAL SKIN 1404 (total 4555)
+- Unreadable files: 0
+- Exact duplicate rows: 276
+- Same picture in different classes: 0
+- After cleaning: (add the numbers from the next cell)
+- Limitation: only exact copies are found. Resized or re-saved copies may still be there.
+- Finding: psoriasis photos often have a small logo in the bottom-left. Lichen planus photos sometimes have a Dermnet watermark. Normal skin photos have no logos. The model might learn these marks instead of the disease.
+- Plan: hide the logo corner during training (Day 5), and report this limitation.
+- after: {'PSORIASIS': 1586, 'LICHEN PLANUS': 1565, 'NORMAL SKIN': 1266} | total: 4417
