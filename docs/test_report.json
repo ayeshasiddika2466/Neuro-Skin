@@ -1,0 +1,33 @@
+{
+  "LICHEN PLANUS": {
+    "precision": 0.9367088607594937,
+    "recall": 0.9446808510638298,
+    "f1-score": 0.940677966101695,
+    "support": 235.0
+  },
+  "NORMAL SKIN": {
+    "precision": 1.0,
+    "recall": 0.9263157894736842,
+    "f1-score": 0.9617486338797814,
+    "support": 190.0
+  },
+  "PSORIASIS": {
+    "precision": 0.936,
+    "recall": 0.9831932773109243,
+    "f1-score": 0.9590163934426229,
+    "support": 238.0
+  },
+  "accuracy": 0.9532428355957768,
+  "macro avg": {
+    "precision": 0.9575696202531646,
+    "recall": 0.9513966392828128,
+    "f1-score": 0.9538143311413664,
+    "support": 663.0
+  },
+  "weighted avg": {
+    "precision": 0.9545921301334556,
+    "recall": 0.9532428355957768,
+    "f1-score": 0.9532993425496246,
+    "support": 663.0
+  }
+}
