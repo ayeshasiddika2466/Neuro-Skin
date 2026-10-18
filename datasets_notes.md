@@ -36,3 +36,24 @@
 - Finding: psoriasis photos often have a small logo in the bottom-left. Lichen planus photos sometimes have a Dermnet watermark. Normal skin photos have no logos. The model might learn these marks instead of the disease.
 - Plan: hide the logo corner during training (Day 5), and report this limitation.
 - after: {'PSORIASIS': 1586, 'LICHEN PLANUS': 1565, 'NORMAL SKIN': 1266} | total: 4417
+
+## Split (Day 4)
+- After cleaning: PSORIASIS 1586, LICHEN PLANUS 1565, NORMAL SKIN 1266 (total 4417)
+- 138 exact duplicates removed, all from NORMAL SKIN
+- Stratified split, random_state=42: train 3091, val 663, test 663
+- Test set stays untouched until Day 6
+
+## Day 5: training
+- Model: MobileNetV3-Small, pretrained on ImageNet, last layer changed to 3 classes
+- Bottom-left and bottom-right corners painted black on all images (logo cheating)
+- 3 epochs head only (lr 1e-3), then 5 epochs fine-tuning (lr 1e-4), seed 42
+- Best validation accuracy: 0.9608 (finetune epoch 4)
+- Train acc 0.986 vs val acc 0.958 at the end: small gap, slight overfitting
+- Limitation: Dermnet watermarks in the middle of some pictures cannot be removed
+- The validation score is not the final score. The test set is used on Day 6.
+
+## Day 6: test results
+- Test set: 663 images, run once, after training was finished
+- Accuracy / macro F1 / psoriasis precision / psoriasis recall: (your real numbers)
+- Main mistakes: (what you saw in the confusion matrix)
+- The score is partly helped by dataset style (clean normal skin, watermarks). It is not clinical performance.

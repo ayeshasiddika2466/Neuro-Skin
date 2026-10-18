@@ -4,3 +4,4 @@ models/*.pth
 __pycache__/
 .venv/
 *.pkl
+models/*.joblib
