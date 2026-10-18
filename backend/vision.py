@@ -16,6 +16,7 @@ CLASSES_PATH = os.path.join(BASE, "models", "classes.json")
 
 IMG = 224
 MIN_SIDE = 32
+MAX_BYTES = 50 * 1024 * 1024   
 
 _tf = transforms.Compose([
     transforms.ToTensor(),
@@ -61,6 +62,8 @@ def _open_image(source):
 
 def predict_image(source):
     """Returns a dictionary. Never crashes on a bad image."""
+    if isinstance(source, bytes) and len(source) > MAX_BYTES:
+        return {"valid": False, "error": "The image is too large (maximum 50 MB)."}
     try:
         img = _open_image(source)
     except Exception:

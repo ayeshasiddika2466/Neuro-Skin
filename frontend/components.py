@@ -92,6 +92,7 @@ def show_image(image):
     for name, p in image["probabilities"].items():
         st.progress(p, text=f"{name}: {p:.0%}")
     st.caption("A model probability is not certainty and not a diagnosis.")
+    st.caption("The three percentages add up to 100%. A small percentage means 'unlikely'.")
 
 
 def show_text(text):
@@ -129,11 +130,15 @@ def show_expert(result):
     for line in summary_lines(result["facts"]):
         st.write("- " + line)
 
-    score = result["integrated_score"]
+        score = result["integrated_score"]
     if score is not None:
         st.write(f"Integrated score (illustrative): **{score:.2f}** "
                  f"({result['integrated_level']})")
-        st.caption("A weighted mix of the available parts. It is not validated.")
+        if result["input_facts"].get("questionnaire_incomplete"):
+            st.caption("The questionnaire is incomplete, so this score uses only "
+                       "the image and/or text. It is not validated.")
+        else:
+            st.caption("A weighted mix of the available parts. It is not validated.")
 
     with st.expander("Why? Rules that fired"):
         if not result["trace"]:

@@ -44,9 +44,18 @@ if submitted:
     image = None
     if upload is not None:
         with st.spinner("Reading the image..."):
-            image = predict_image(upload.getvalue())
+            try:
+                image = predict_image(upload.getvalue())
+            except FileNotFoundError:
+                image = {"valid": False, "error": "The image model file is missing on this computer."}
 
-    text = predict_text(journal)
+    try:
+        text = predict_text(journal)
+    except FileNotFoundError:
+        text = {"provided": True, "valid": False,
+                "error": "The text model file is missing on this computer.",
+                "distress_score": None, "text_distress": None}
+
     result = analyze(phq9, gad7, stress, skin, image, text)
 
     st.divider()

@@ -9,6 +9,11 @@ from backend.vision import predict_image, hide_corners, MODEL_PATH
 needs_model = pytest.mark.skipif(not os.path.exists(MODEL_PATH),
                                  reason="model file not on this computer")
 
+from backend.vision import MAX_BYTES
+
+def test_too_large_file():
+    assert predict_image(b"0" * (MAX_BYTES + 1))["valid"] is False
+
 
 def make_png(size=(100, 100), color=(200, 120, 100)):
     buf = io.BytesIO()
