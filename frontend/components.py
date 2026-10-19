@@ -49,12 +49,16 @@ def disclaimer():
     )
 
 
-def ask(prefix, questions, labels):
-    """Shows radio buttons. Unanswered questions give None."""
-    answers = []
-    for i, q in enumerate(questions, 1):
-        choice = st.radio(f"{i}. {q}", labels, index=None, key=f"{prefix}{i}")
-        answers.append(None if choice is None else labels.index(choice))
+def ask(prefix, questions, labels, columns=2):
+    """Radio buttons in a grid of glass cards. Unanswered gives None."""
+    answers = [None] * len(questions)
+    cols = st.columns(columns)
+    for i, q in enumerate(questions):
+        with cols[i % columns]:
+            with st.container(border=True):
+                choice = st.radio(f"{i + 1}. {q}", labels, index=None,
+                                  key=f"{prefix}{i + 1}")
+        answers[i] = None if choice is None else labels.index(choice)
     return answers
 
 
@@ -74,7 +78,8 @@ def show_questionnaire(phq9, gad7, stress, skin):
     for col, (name, r) in zip(cols, items):
         with col:
             if r["complete"]:
-                col.metric(name, r["score"], r["band"] or r["level"])
+                col.metric(name, r["score"], r["band"] or r["level"],
+                           delta_color="off", delta_arrow="off")
             else:
                 col.metric(name, "-", "incomplete")
 
