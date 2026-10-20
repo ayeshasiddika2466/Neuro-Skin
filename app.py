@@ -28,14 +28,20 @@ def show_results(phq_a, phq9, gad7, stress, skin, image, text, journal="", word_
 
 
 def skin_upload():
-    st.write("Choose a photo of the area you would like to check.")
-    upload = st.file_uploader("Skin photo", type=["jpg", "jpeg", "png"], key="upload",
-                              label_visibility="collapsed")
-    st.markdown('<div class="ns-note">JPG or PNG, up to 50 MB. NeuroSkin does not save your photo. '
-                'Use the x to remove it, or choose another to replace it.</div>',
-                unsafe_allow_html=True)
-    if upload is not None:
-        st.image(upload, caption="Your selected photo", width="stretch")
+    left, right = st.columns(2, gap="large")
+    with left:
+        st.write("Choose a photo of the area you would like to check.")
+        upload = st.file_uploader("Skin photo", type=["jpg", "jpeg", "png"], key="upload",
+                                  label_visibility="collapsed")
+        st.markdown('<div class="ns-note">JPG or PNG, up to 50 MB. NeuroSkin does not save your photo. '
+                    'Use the x to remove it, or choose another to replace it.</div>',
+                    unsafe_allow_html=True)
+    with right:
+        if upload is not None:
+            st.image(upload, caption="Your selected photo", width=380)
+        else:
+            st.markdown('<div class="ns-note">Your photo will appear here once you choose one.</div>',
+                        unsafe_allow_html=True)
     return upload
 
 
@@ -97,14 +103,16 @@ def assessment():
         shell.exit_button()
     ui.disclaimer()
 
-    left, right = st.columns([1.2, 1], gap="large")
-    with left:
+    with st.container(key="panel_questions"):
         theme.section("01", "How have you been feeling?")
         flow.question_card()
         flow.review()
-    with right:
+
+    with st.container(key="panel_skin"):
         theme.section("02", "Your skin")
         upload = skin_upload()
+
+    with st.container(key="panel_journal"):
         theme.section("03", "Your journal")
         journal = journal_box()
 

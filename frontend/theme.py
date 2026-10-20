@@ -151,11 +151,14 @@ button:focus-visible, [role="radio"]:focus-visible, textarea:focus-visible {
 .st-key-exit button:hover { background: rgba(217, 164, 65, .14); border-color: var(--ns-amber); color: #f0c46c; }
 
 /* one-question-at-a-time card */
-[class*="st-key-question_card"] {
+[class*="st-key-question_card"] { animation: ns-rise .5s var(--ns-ease) both; }
+
+/* full-width stacked panels */
+[class*="st-key-panel_"] {
   background: var(--ns-glass-strong); border: 1px solid var(--ns-line);
-  border-radius: 24px; padding: 1.6rem 1.8rem; min-height: 340px;
+  border-radius: 26px; padding: 1.6rem 2rem 1.8rem; min-height: 300px;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--ns-shadow); animation: ns-rise .5s var(--ns-ease) both;
+  box-shadow: var(--ns-shadow);
 }
 .ns-q-text {
   font-family: var(--ns-font-display); font-size: 1.7rem; line-height: 1.3;
@@ -248,12 +251,12 @@ textarea, [data-baseweb="textarea"] {
 
 /* reveal on scroll (Chrome and Edge; others simply show everything) */
 @supports (animation-timeline: view()) {
-  .ns-section, [data-testid="stVerticalBlockBorderWrapper"], [data-testid="stExpander"] {
+  .ns-section, [data-testid="stVerticalBlockBorderWrapper"], [data-testid="stExpander"], [class*="st-key-panel_"] {
     animation: ns-reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 45%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rv, .line, .ns-topbar, .ns-section, [data-testid="stVerticalBlockBorderWrapper"], [data-testid="stExpander"] {
+  .rv, .line, .ns-topbar, .ns-section, [data-testid="stVerticalBlockBorderWrapper"], [data-testid="stExpander"], [class*="st-key-panel_"] {
     animation: none !important; opacity: 1; transform: none;
   }
   .ns-preloader { display: none; }
@@ -265,6 +268,7 @@ textarea, [data-baseweb="textarea"] {
   .st-key-welcome_card { padding: 1.7rem 1.3rem; margin-top: 3vh; }
   .ns-welcome-title { font-size: 2.2rem; }
   .block-container { padding-top: 4rem; }
+  [class*="st-key-panel_"] { padding: 1.2rem 1.1rem 1.3rem; }
 }
 
 /* reduced motion: no animation at all */

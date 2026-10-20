@@ -261,30 +261,20 @@ def show(result, phq_a, phq9, gad7, stress, skin, image, text, journal="", word_
     theme.section("04", "Your Combined Insights")
     st.write("Your responses and assessments highlight a few areas worth paying attention to.")
 
-    left, right = st.columns(2, gap="large")
-    with left:
-        _skin_card(image)
-    with right:
-        _emotional_card(phq9, gad7, stress, skin)
+    _skin_card(image)
+    _emotional_card(phq9, gad7, stress, skin)
 
     has_reflection = bool(text and text.get("provided") and text.get("valid"))
     has_skin = bool(image and image.get("valid"))
     has_emotion = phq9["complete"] or gad7["complete"] or stress["complete"] or has_reflection
     pattern = facts.get("psychosocial_interaction") == "POSSIBLE"
 
-    if has_reflection and has_skin and has_emotion:
-        a, b = st.columns(2, gap="large")
-        with a:
-            _reflection_card(text)
-        with b:
-            _connection_card(pattern)
-    else:
-        if has_reflection:
-            _reflection_card(text)
-        elif text and text.get("provided") and not text.get("valid"):
-            st.warning(text.get("error", "The journal could not be read."))
-        if has_skin and has_emotion:
-            _connection_card(pattern)
+    if has_reflection:
+        _reflection_card(text)
+    elif text and text.get("provided") and not text.get("valid"):
+        st.warning(text.get("error", "The journal could not be read."))
+    if has_skin and has_emotion:
+        _connection_card(pattern)
 
     _combined_card(result)
 
