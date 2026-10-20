@@ -53,7 +53,7 @@ The trained models are **not in this repository**. Put them in `models/`:
 They are made by the notebooks in `notebooks/` (Kaggle). Without them the app still opens and shows
 a clear message instead of a prediction.
 
-The background video is `static/welcome.mp4`. If it is missing, the app uses a plain night-sky background.
+The background video is `static/welcome.mp4`. The app uses a plain night-sky background.
 
 ## Tests
 
